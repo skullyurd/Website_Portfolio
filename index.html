@@ -1,1 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="IT Portfolio — Projects, CV, and contact." />
+  <title>Your Name — IT Portfolio</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="brand-mark">⌁</span>
+        <span class="brand-text">YourName</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
+          <span class="sr-only">Toggle navigation</span>
+          ☰
+        </button>
+        <ul id="navMenu" class="nav-menu">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#cv">CV</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#media">Media</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">IT / Dev / Cloud / Security (edit this)</p>
+          <h1>
+            Hi, I’m <span class="accent">Your Name</span>.<br/>
+            I build reliable systems & clean web apps.
+          </h1>
+          <p class="lead">
+            Short bio: what you do, what you like building, and what roles you’re aiming for.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary" href="#projects">View Projects</a>
+            <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">Download CV</a>
+          </div>
+
+          <div class="quick-facts">
+            <div class="pill">📍 Brussels / Remote</div>
+            <div class="pill">🧰 Java • Python • JS</div>
+            <div class="pill">☁️ AWS • Docker • Linux</div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <img class="avatar" src="assets/avatar.jpg" alt="Portrait of Your Name" />
+          <div class="hero-card-body">
+            <p class="muted">Currently:</p>
+            <p><strong>Student / Junior IT / Engineer</strong> (edit)</p>
+            <p class="muted">Open to:</p>
+            <p><strong>Internship • Junior Role</strong></p>
+            <div class="social-row">
+              <a class="icon-link" href="https://github.com/your-handle" target="_blank" rel="noopener">GitHub</a>
+              <a class="icon-link" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="icon-link" href="#contact">Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <div class="section-actions">
+            <input id="projectSearch" class="input" type="search" placeholder="Search projects…" autocomplete="off" />
+            <select id="tagFilter" class="select" aria-label="Filter projects by tag">
+              <option value="all">All tags</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="projectsGrid" class="grid cards" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section class="section" id="cv">
+      <div class="container">
+        <div class="section-head">
+          <h2>CV</h2>
+          <p class="muted">Keep it scannable. Link to your PDF and highlight key items.</p>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Experience</h3>
+            <ul class="list">
+              <li>
+                <strong>Role — Company</strong>
+                <div class="muted">2025 — Present • Brussels</div>
+                <div>1–2 lines on impact and what you built.</div>
+              </li>
+              <li>
+                <strong>Role — Company</strong>
+                <div class="muted">2024 — 2025</div>
+                <div>1–2 lines on impact.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Education & Certifications</h3>
+            <ul class="list">
+              <li>
+                <strong>Degree — School</strong>
+                <div class="muted">2023 — 2026</div>
+              </li>
+              <li>
+                <strong>Certification</strong>
+                <div class="muted">Issuer • Year</div>
+              </li>
+            </ul>
+
+            <div class="spacer"></div>
+
+            <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">Open CV (PDF)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>Who I am</h2>
+          <p class="muted">A little more personality + what you care about.</p>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Story</h3>
+            <p>
+              Write 5–8 lines about your background, what you’re learning, and what problems you enjoy solving.
+            </p>
+            <p>
+              Mention 1–2 measurable strengths (e.g., “I like automating workflows”, “I care about monitoring & reliability”).
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Skills</h3>
+            <div class="skill-grid">
+              <div class="skill">
+                <div class="skill-top"><span>JavaScript</span><span class="muted">Advanced</span></div>
+                <div class="bar"><div style="width: 80%"></div></div>
+              </div>
+              <div class="skill">
+                <div class="skill-top"><span>Python</span><span class="muted">Intermediate</span></div>
+                <div class="bar"><div style="width: 65%"></div></div>
+              </div>
+              <div class="skill">
+                <div class="skill-top"><span>AWS / Cloud</span><span class="muted">Intermediate</span></div>
+                <div class="bar"><div style="width: 60%"></div></div>
+              </div>
+            </div>
+            <p class="muted tiny">Edit percentages or remove this block if you dislike skill bars.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section class="section" id="media">
+      <div class="container">
+        <div class="section-head">
+          <h2>Media</h2>
+          <p class="muted">Add a short intro video and a small gallery.</p>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Intro video</h3>
+            <div class="video-wrap">
+              <!-- Option A: YouTube -->
+              <iframe
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="Intro video"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            <p class="muted tiny">Replace the embed link with your own YouTube/Vimeo video.</p>
+          </div>
+
+          <div class="card">
+            <h3>Gallery</h3>
+            <div class="gallery" id="gallery">
+              <button class="thumb" data-full="assets/gallery-1.jpg" aria-label="Open image 1">
+                <img src="assets/gallery-1.jpg" alt="Gallery image 1" loading="lazy">
+              </button>
+              <button class="thumb" data-full="assets/gallery-2.jpg" aria-label="Open image 2">
+                <img src="assets/gallery-2.jpg" alt="Gallery image 2" loading="lazy">
+              </button>
+            </div>
+            <p class="muted tiny">Add more images by copying a thumb button.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p class="muted">This form uses your email client (no backend needed).</p>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Links</h3>
+            <ul class="list compact">
+              <li><a href="https://github.com/your-handle" target="_blank" rel="noopener">GitHub</a></li>
+              <li><a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a></li>
+              <li><a href="assets/cv.pdf" target="_blank" rel="noopener">CV (PDF)</a></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Email me</h3>
+            <form id="contactForm">
+              <label class="label">
+                Your name
+                <input class="input" name="name" required />
+              </label>
+              <label class="label">
+                Your email
+                <input class="input" name="email" type="email" required />
+              </label>
+              <label class="label">
+                Message
+                <textarea class="textarea" name="message" rows="5" required></textarea>
+              </label>
+
+              <button class="btn primary" type="submit">Send</button>
+              <p class="muted tiny">Opens your mail app with a pre-filled message.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="muted">© <span id="year"></span> Your Name. Built with HTML/CSS/JS.</p>
+      <a class="to-top" href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Modal for gallery -->
+  <dialog class="modal" id="imgModal">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <img id="modalImg" alt="" />
+  </dialog>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
