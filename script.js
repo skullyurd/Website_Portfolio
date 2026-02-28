@@ -1,25 +1,8 @@
-const projects = [
-  {
-    title: "Log Monitoring Dashboard",
-    description: "Web app that parses logs, shows trends, and sends alerts.",
-    tags: ["JavaScript", "Node", "Observability"],
-    image: "assets/project-1.png",
-    links: {
-      repo: "https://github.com/your-handle/project-one",
-      demo: "https://your-handle.github.io/project-one/"
-    }
-  },
-  {
-    title: "AWS Terraform Lab",
-    description: "IaC templates to deploy VPC, EC2, and CI pipelines.",
-    tags: ["Terraform", "AWS", "DevOps"],
-    image: "assets/project-2.png",
-    links: {
-      repo: "https://github.com/your-handle/project-two",
-      demo: ""
-    }
-  }
-];
+// script.js
+// Homepage behavior: nav toggle, year, projects grid (from projects.js), search + tag filter,
+// contact form mailto, and gallery modal.
+
+const projects = window.PROJECTS || [];
 
 // --- Nav toggle (mobile)
 const navToggle = document.querySelector(".nav-toggle");
@@ -31,64 +14,86 @@ if (navToggle && navMenu) {
   });
 
   navMenu.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") navMenu.classList.remove("open");
+    if (e.target && e.target.tagName === "A") navMenu.classList.remove("open");
   });
 }
 
 // --- Year
-document.getElementById("year").textContent = new Date().getFullYear();
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// --- Render projects
+// --- Projects: render + search + filter
 const grid = document.getElementById("projectsGrid");
 const search = document.getElementById("projectSearch");
 const filter = document.getElementById("tagFilter");
 
 function uniqTags(items) {
   const s = new Set();
-  items.forEach(p => p.tags.forEach(t => s.add(t)));
-  return Array.from(s).sort((a,b) => a.localeCompare(b));
+  items.forEach((p) => (p.tags || []).forEach((t) => s.add(t)));
+  return Array.from(s).sort((a, b) => a.localeCompare(b));
 }
 
 function projectCard(p) {
-  const demoLink = p.links.demo
+  const href = `project.html?slug=${encodeURIComponent(p.slug)}`;
+
+  const cover = p.cover || p.image || "";
+  const demoLink = p.links?.demo
     ? `<a href="${p.links.demo}" target="_blank" rel="noopener">Live</a>`
     : "";
 
+  const repoLink = p.links?.repo
+    ? `<a href="${p.links.repo}" target="_blank" rel="noopener">Repo</a>`
+    : "";
+
+  const tags = (p.tags || []).map((t) => `<span class="tag">${t}</span>`).join("");
+
   return `
     <article class="card project-card">
-      <div class="project-thumb">
-        <img src="${p.image}" alt="${p.title} screenshot" loading="lazy"/>
-      </div>
-      <div>
-        <h3>${p.title}</h3>
-        <p class="muted">${p.description}</p>
-      </div>
+      <a href="${href}" style="text-decoration:none;">
+        <div class="project-thumb">
+          ${cover ? `<img src="${cover}" alt="${p.title} screenshot" loading="lazy"/>` : ""}
+        </div>
+        <div style="margin-top:10px;">
+          <h3>${p.title}</h3>
+          <p class="muted">${p.short || ""}</p>
+        </div>
+      </a>
+
       <div class="tags">
-        ${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+        ${tags}
       </div>
+
       <div class="project-links">
-        <a href="${p.links.repo}" target="_blank" rel="noopener">Repo</a>
+        ${repoLink}
         ${demoLink}
+        <a href="${href}">Details</a>
       </div>
     </article>
   `;
 }
 
 function applyFilters() {
+  if (!grid) return;
+
   const q = (search?.value || "").trim().toLowerCase();
   const tag = filter?.value || "all";
 
-  const filtered = projects.filter(p => {
-    const matchesText =
-      p.title.toLowerCase().includes(q) ||
-      p.description.toLowerCase().includes(q) ||
-      p.tags.join(" ").toLowerCase().includes(q);
+  const filtered = projects.filter((p) => {
+    const textBlob = [
+      p.title || "",
+      p.short || "",
+      p.description || "",
+      (p.tags || []).join(" "),
+    ]
+      .join(" ")
+      .toLowerCase();
 
-    const matchesTag = tag === "all" ? true : p.tags.includes(tag);
+    const matchesText = !q || textBlob.includes(q);
+    const matchesTag = tag === "all" ? true : (p.tags || []).includes(tag);
+
     return matchesText && matchesTag;
   });
 
-  if (!grid) return;
   grid.innerHTML = filtered.length
     ? filtered.map(projectCard).join("")
     : `<div class="card"><p>No projects found. Try another search/tag.</p></div>`;
@@ -96,8 +101,19 @@ function applyFilters() {
 
 function initTagFilter() {
   if (!filter) return;
-  const tags = uniqTags(projects);
-  tags.forEach(t => {
+
+  // Reset (keep first option "All tags" if present)
+  const keepFirst = filter.querySelector("option[value='all']");
+  filter.innerHTML = "";
+  if (keepFirst) filter.appendChild(keepFirst);
+  else {
+    const opt = document.createElement("option");
+    opt.value = "all";
+    opt.textContent = "All tags";
+    filter.appendChild(opt);
+  }
+
+  uniqTags(projects).forEach((t) => {
     const opt = document.createElement("option");
     opt.value = t;
     opt.textContent = t;
@@ -123,39 +139,39 @@ form?.addEventListener("submit", (e) => {
 
   const subject = encodeURIComponent(`Portfolio message from ${name}`);
   const body = encodeURIComponent(
-`Name: ${name}
-Email: ${email}
-
-${message}`
+    `Name: ${name}\nEmail: ${email}\n\n${message}`
   );
 
   // Replace with your email:
   const to = "you@example.com";
-
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
 });
 
-// --- Gallery modal
+// --- Gallery modal (works if the homepage has .thumb buttons + #imgModal)
 const modal = document.getElementById("imgModal");
 const modalImg = document.getElementById("modalImg");
 const modalClose = document.getElementById("modalClose");
 
-document.querySelectorAll(".thumb").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const full = btn.getAttribute("data-full");
-    if (!full || !modal || !modalImg) return;
-    modalImg.src = full;
-    modalImg.alt = btn.querySelector("img")?.alt || "Gallery image";
-    modal.showModal();
-  });
-});
+if (modal && modalImg) {
+  document.querySelectorAll(".thumb").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const full = btn.getAttribute("data-full");
+      if (!full) return;
 
-modalClose?.addEventListener("click", () => modal?.close());
-modal?.addEventListener("click", (e) => {
-  const rect = modal.getBoundingClientRect();
-  const inDialog = (
-    rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-    rect.left <= e.clientX && e.clientX <= rect.left + rect.width
-  );
-  if (!inDialog) modal.close();
-});
+      modalImg.src = full;
+      modalImg.alt = btn.querySelector("img")?.alt || "Gallery image";
+      modal.showModal();
+    });
+  });
+
+  modalClose?.addEventListener("click", () => modal.close());
+  modal.addEventListener("click", (e) => {
+    const rect = modal.getBoundingClientRect();
+    const inDialog =
+      rect.top <= e.clientY &&
+      e.clientY <= rect.top + rect.height &&
+      rect.left <= e.clientX &&
+      e.clientX <= rect.left + rect.width;
+    if (!inDialog) modal.close();
+  });
+}
