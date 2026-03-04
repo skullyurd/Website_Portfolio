@@ -66,5 +66,37 @@ window.PROJECTS = [
       "Example environments for dev/stage",
       "Cost-conscious defaults"
     ]
+  },
+
+    {
+    slug: "soni-cnto",
+    title: "Soni CNTO",
+    short: "woke up this morning, got some gabagool",
+    long: `
+      <p><strong>What it issssss:</strong> is a sandich bro </p>
+      <p><strong>Highlightsssssss:</strong></p>
+      <ul>
+        <li>bread + oil + gabagool</li>
+        <li>ova hereeeeee</li>
+        <li> see it go</li>
+      </ul>
+    `,
+    tags: ["wdwd", "wdwd", "itlain"],
+    date: "1993-01",
+    cover: "assets/project-3.png",
+    links: {
+      repo: "https://github.com/your-handle/project-three",
+      demo: "",
+      docs: ""
+    },
+    media: {
+      videos: [],
+      images: ["assets/project-2.png", "assets/project-3.png"]
+    },
+    bullets: [
+      "Modular IaC with clear variables/outputs",
+      "Example environments for dev/stage",
+      "Cost-conscious defaults"
+    ]
   }
 ];

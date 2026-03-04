@@ -143,7 +143,7 @@ form?.addEventListener("submit", (e) => {
   );
 
   // Replace with your email:
-  const to = "you@example.com";
+  const to = "baris.buba1999@gmail.com";
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
 });
 
